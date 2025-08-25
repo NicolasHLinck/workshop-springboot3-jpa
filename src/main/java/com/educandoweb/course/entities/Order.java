@@ -6,13 +6,11 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
-
 import com.educandoweb.course.entities.enums.OrderStatus;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -44,8 +42,8 @@ public class Order implements Serializable {
 	@JoinColumn(name = "client_id")	
 	private User client;	
 	
-	@Fetch(FetchMode.JOIN)
-	@OneToMany(mappedBy = "id.order")
+	
+	@OneToMany(mappedBy = "id.order", fetch = FetchType.LAZY)
 	private Set<OrderItem> items = new HashSet<>();
 	
 	
